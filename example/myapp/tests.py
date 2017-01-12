@@ -43,6 +43,7 @@ class SoftDeleteTestCase(TestCase):
         self.assertIsNotNone(parent.child.deleted_at)
 
         # Make sure the parent does not have a child, as it is now deleted.
-        # This test fails.
+        # Getting the parent from the database, to make sure the problem is not
+        # caused by some cached data. This test fails.
         with self.assertRaises(Child.DoesNotExist):
-            nothing = parent.child
+            nothing = Parent.objects.first().child
